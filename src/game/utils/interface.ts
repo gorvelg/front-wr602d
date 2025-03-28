@@ -1,6 +1,6 @@
 interface GameObject {
-    function onUpdate(): void;
-    function onLoad(): void;
+    onUpdate(): void;
+    onLoad(): void;
 }
 
 export { GameObject };

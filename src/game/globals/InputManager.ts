@@ -1,27 +1,32 @@
-import { GameObject } from '../utils/interface';
-class InputManager extends GameObject {
+import { GameObject } from '../utils/interface.ts';
+import { getCube } from '../globals/gameState.ts';
+import * as THREE from 'three'; // si tu as besoin d'accéder à THREE.Object3D, sinon tu peux enlever
 
-    private cube = null;
+class InputManager implements GameObject {
+    private cube: THREE.Object3D | null = null;
+    private keysPressed: Record<string, boolean> = {};
 
-    constructor() {
-        super();
-    }
-    onUpdate() {
-        if (keysPressed['ArrowUp']) cube.position.y += 0.1;
-        if (keysPressed['ArrowRight']) cube.position.x += 0.1;
-        if (keysPressed['ArrowDown']) cube.position.y -= 0.1;
-        if (keysPressed['ArrowLeft']) cube.position.x -= 0.1;
-    }
-    onLoad() {
+    constructor() {}
+
+    onLoad(): void {
         this.cube = getCube();
 
         window.addEventListener('keydown', (event) => {
-            keysPressed[event.code] = true;
+            this.keysPressed[event.code] = true;
         });
 
         window.addEventListener('keyup', (event) => {
-            keysPressed[event.code] = false;
+            this.keysPressed[event.code] = false;
         });
+    }
+
+    onUpdate(): void {
+        if (!this.cube) return;
+
+        if (this.keysPressed['ArrowUp']) this.cube.position.y += 0.1;
+        if (this.keysPressed['ArrowRight']) this.cube.position.x += 0.1;
+        if (this.keysPressed['ArrowDown']) this.cube.position.y -= 0.1;
+        if (this.keysPressed['ArrowLeft']) this.cube.position.x -= 0.1;
     }
 }
 

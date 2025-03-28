@@ -86,7 +86,7 @@ const keysPressed = {};
 // window.addEventListener('keyup', (event) => {
 //     keysPressed[event.code] = false;
 // });
-inputManager.onload()
+inputManager.onLoad()
 
 let lastTime = 0;
 function animate(timestamp) {
