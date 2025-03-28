@@ -3,9 +3,13 @@ import * as THREE from 'three';
 import {AmbientLight, AxesHelper, DirectionalLight, Mesh, Vector3} from "three";
 import {OrbitControls} from "three/addons";
 import GUI from 'lil-gui';
-
+import {getEnvironment} from "./src/game/feature/environnent.ts";
+import {setCube} from "./src/game/globals/gameState";
+import { InputManager } from './src/game/globals/InputManager.ts';
+import {getMeshCube} from "./src/game/feature/cube";
 const gui = new GUI();
 
+const inputManager = new InputManager();
 
 
 // Création de la scène
@@ -26,33 +30,23 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const characterGroup = new THREE.Group();
-scene.add(characterGroup);
+
 
 // Ajout d'un cube
-const geometryBox = new THREE.BoxGeometry(4, 1, 4, ); // Géométrie d'un cube
-const materialBox = new THREE.MeshStandardMaterial({ color: 0xdb1d0f, transparent: true, opacity: 0.5}); // Matériau rouge
-const cube = new Mesh(geometryBox, materialBox);
 
-const geometrySphere = new THREE.SphereGeometry(1, 32, 32);
-const materialSphere = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-const sphere = new THREE.Mesh(geometrySphere, materialSphere);
 
-const geometryPlane = new THREE.PlaneGeometry( 10, 10 );
-const materialPlane = new THREE.MeshBasicMaterial( {color: 0x00ff00, side: THREE.DoubleSide} );
-const plane = new THREE.Mesh( geometryPlane, materialPlane );
+const plane = getEnvironment();
 scene.add(plane);
-plane.rotation.x = - Math.PI / 2;
-plane.position.y = -2;
+
+const cube = getMeshCube();
+scene.add(cube);
+
+setCube(cube);
 
 
-// cube.rotation.x = Math.PI / 4;
-// cube.rotation.y = Math.PI / 3;
 
-characterGroup.add(cube, sphere);
 
-cube.position.y = -1.5;
-sphere.position.y = 0;
+
 
 
 const v1 = new Vector3(1, 2, 3);
@@ -85,21 +79,19 @@ controls.update();
 const keysPressed = {};
 
 // Au chargement de la page
-window.addEventListener('keydown', (event) => {
-    keysPressed[event.code] = true;
-});
-
-window.addEventListener('keyup', (event) => {
-    keysPressed[event.code] = false;
-});
+// window.addEventListener('keydown', (event) => {
+//     keysPressed[event.code] = true;
+// });
+//
+// window.addEventListener('keyup', (event) => {
+//     keysPressed[event.code] = false;
+// });
+inputManager.onload()
 
 let lastTime = 0;
 function animate(timestamp) {
 
-    if (keysPressed['ArrowUp']) cube.position.y += 0.1;
-    if (keysPressed['ArrowRight']) cube.position.x += 0.1;
-    if (keysPressed['ArrowDown']) cube.position.y -= 0.1;
-    if (keysPressed['ArrowLeft']) cube.position.x -= 0.1;
+    inputManager.onUpdate();
 
     const deltaTime = timestamp - lastTime;
 
@@ -114,29 +106,7 @@ function animate(timestamp) {
 }
 requestAnimationFrame(animate);
 
-gui.add(document, 'title').name('Titre du document')
-gui.add({bool: false}, 'bool').name('Un checkbox')
 
-gui.add(cube.position, 'x', -5, 10).name('Position X');
-gui.add(cube.position, 'y', -5, 5).name('Position Y');
-gui.add(cube.position, 'z', -5, 5).name('Position Z');
-
-gui.add(
-    { reset: () => cube.position.set(0, 0, 0) },
-    'reset'
-).name('Reset Position');
-
-const cubeMaterial = cube.material;
-const params = { color: '#ff0000' };
-
-gui.addColor(params, 'color').onChange((value) => {
-    cubeMaterial.color.set(value);
-});
-const cubeFolder = gui.addFolder('Rotation du cube');
-cubeFolder.add(cube.rotation, 'x', 0, Math.PI * 2).name('Rotation X');
-cubeFolder.add(cube.rotation, 'y', 0, Math.PI * 2).name('Rotation Y');
-cubeFolder.add(cube.rotation, 'z', 0, Math.PI * 2).name('Rotation Z');
-cubeFolder.open();
 // Ajuster la taille du rendu en cas de redimensionnement de la fenêtre
 window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
