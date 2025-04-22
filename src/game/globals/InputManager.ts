@@ -1,15 +1,20 @@
-import { GameObject } from '../utils/interface.ts';
-import { getCube } from '../globals/gameState.ts';
-import * as THREE from 'three'; // si tu as besoin d'accéder à THREE.Object3D, sinon tu peux enlever
+import { GameObject } from '../utils/interface';
+import { getFox } from '../globals/gameState'; // 🦊 On utilise getFox ici
+import * as THREE from 'three';
 
 class InputManager implements GameObject {
-    private cube: THREE.Object3D | null = null;
+    private fox: THREE.Object3D | null = null; // Renommé cube → fox
     private keysPressed: Record<string, boolean> = {};
 
     constructor() {}
 
     onLoad(): void {
-        this.cube = getCube();
+        this.fox = getFox(); // 🦊 Récupère le Fox
+
+        if (!this.fox) {
+            console.error('Fox non trouvé dans le GameState, assure-toi que setFox() est bien appelé après le chargement.');
+            return;
+        }
 
         window.addEventListener('keydown', (event) => {
             this.keysPressed[event.code] = true;
@@ -21,12 +26,15 @@ class InputManager implements GameObject {
     }
 
     onUpdate(): void {
-        if (!this.cube) return;
+        if (!this.fox) return;
 
-        if (this.keysPressed['ArrowUp']) this.cube.position.y += 0.1;
-        if (this.keysPressed['ArrowRight']) this.cube.position.x += 0.1;
-        if (this.keysPressed['ArrowDown']) this.cube.position.y -= 0.1;
-        if (this.keysPressed['ArrowLeft']) this.cube.position.x -= 0.1;
+        const speed = 0.1;
+
+        // === Déplacement ===
+        if (this.keysPressed['ArrowUp'] || this.keysPressed['KeyW']) this.fox.position.z += speed;
+        if (this.keysPressed['ArrowDown'] || this.keysPressed['KeyS']) this.fox.position.z -= speed;
+        if (this.keysPressed['ArrowLeft'] || this.keysPressed['KeyA']) this.fox.position.x -= speed;
+        if (this.keysPressed['ArrowRight'] || this.keysPressed['KeyD']) this.fox.position.x += speed;
     }
 }
 
