@@ -35,4 +35,13 @@ function getFox () {
 }
 
 
-export { setCube, getCube, setCoin, getCoin, setScene, getScene, setFox, getFox }
+export {
+    setCube,
+    getCube,
+    setCoin,
+    getCoin,
+    setScene,
+    getScene,
+    setFox,
+    getFox
+}

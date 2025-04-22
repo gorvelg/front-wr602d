@@ -32,17 +32,13 @@ document.body.appendChild(renderer.domElement);
 const plane = getEnvironment();
 scene.add(plane);
 
-// === CUBE JOUEUR (si besoin encore utilisé ailleurs) ===
-const player = getMeshCube();
-scene.add(player);
-setCube(player);
 
 // === PIÈCE ===
 const coin = getMeshCoin();
 scene.add(coin);
 setCoin(coin);
 
-// === VECTEURS (tes tests, pas touché) ===
+// === VECTEURS ===
 const v1 = new Vector3(1, 2, 3);
 const v2 = new Vector3(3, 2, 1);
 console.log('Distance:', v1.distanceTo(v2));
@@ -63,23 +59,18 @@ scene.add(directionalLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-// ==============================================
-// === 💥 CHARGEMENT DU FOX AVEC AWAIT + INPUT ===
-// ==============================================
-
 async function init() {
     try {
-        // 🦊 On attend le chargement du Fox AVANT de démarrer l'inputManager
         await loadFox();
         console.log('Fox chargé et prêt !');
-        inputManager.onLoad(); // 💯 → Maintenant getFox() est dispo
+        inputManager.onLoad();
         animate();
     } catch (error) {
         console.error('Erreur lors du chargement du Fox :', error);
     }
 }
 
-init(); // Lance le démarrage de ton jeu
+init();
 
 // === ANIMATION LOOP ===
 function animate() {
