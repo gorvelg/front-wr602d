@@ -12,7 +12,8 @@ import { CoinManager } from './src/game/feature/coin';
 const gui = new GUI();
 const inputManager = new InputManager();
 const coinManager = new CoinManager();
-let gameOver = false;
+
+coinManager.isGameOver() ;
 
 
 // === SETUP SCENE ===
@@ -64,7 +65,7 @@ async function init() {
         await loadFox();
         console.log('Fox chargé et prêt !');
 
-        coinManager.spawnCoins(scene);
+        coinManager.spawnCoins(scene, 10, 1000);
 
         inputManager.onLoad();
 
@@ -80,20 +81,14 @@ init();
 function animate() {
     requestAnimationFrame(animate);
 
-    if (!gameOver) {
-        inputManager.onUpdate();
-        coinManager.onUpdate();
-        coinManager.checkCollisions();
-
-
-        if (coinManager.isGameOver()) {
-            gameOver = true;
-        }
-    }
+    inputManager.onUpdate();
+    coinManager.onUpdate();
+    coinManager.checkCollisions();
 
     controls.update();
     renderer.render(scene, camera);
 }
+
 
 
 

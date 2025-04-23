@@ -18,10 +18,15 @@ export class CoinManager implements GameObject {
         });
     }
 
+    spawnCoins(scene: THREE.Scene, totalCoins: number = 10, interval: number = 1000): void {
+        let spawned = 0;
 
+        const intervalId = setInterval(() => {
+            if (spawned >= totalCoins) {
+                clearInterval(intervalId);
+                return;
+            }
 
-    spawnCoins(scene: Scene): void {
-        for (let i = 0; i < this.numberOfCoins; i++) {
             const coin = this.getMeshCoin();
             coin.position.set(
                 Math.random() * 10 - 5,
@@ -30,11 +35,10 @@ export class CoinManager implements GameObject {
             );
             scene.add(coin);
             this.coins.push(coin);
-        }
+
+            spawned++;
+        }, interval);
     }
-
-
-
 
     getCoins(): Mesh[] {
         return this.coins;
@@ -45,7 +49,6 @@ export class CoinManager implements GameObject {
         const materialCoin = new MeshStandardMaterial({ color: this.coinColor });
         return new Mesh(geometryCoin, materialCoin);
     }
-
 
     checkCollisions(): void {
         const fox = getFox();
@@ -64,7 +67,7 @@ export class CoinManager implements GameObject {
             }
         }
 
-
+        console.log('cc', this.isGameOver());
         if (this.isGameOver()) {
             this.showGameOverMessage();
         }
@@ -80,7 +83,7 @@ export class CoinManager implements GameObject {
     }
 
     isGameOver(): boolean {
-        return this.coins.length === 0;
+        return this.score == 10;
     }
 
     private showGameOverMessage(): void {
@@ -88,8 +91,11 @@ export class CoinManager implements GameObject {
 
         const gameOverElement = document.createElement('div');
         gameOverElement.innerHTML = 'Partie terminée ! Bravo !';
+        gameOverElement.style.position = 'block';
         gameOverElement.id = 'game-over-message';
         document.body.appendChild(gameOverElement);
     }
+
+
 
 }
