@@ -4,14 +4,14 @@ import { AmbientLight, AxesHelper, DirectionalLight, Vector3 } from "three";
 import { OrbitControls } from 'three/addons';
 import GUI from 'lil-gui';
 import { getEnvironment } from "./src/game/feature/environnent.ts";
-import { setCoin, setCube, setScene } from "./src/game/globals/gameState";
+import { setCube, setScene } from "./src/game/globals/gameState";
 import { InputManager } from './src/game/globals/InputManager.ts';
-import { getMeshCube } from "./src/game/feature/cube";
-import { getMeshCoin } from "./src/game/feature/coin";
 import { loadFox } from './src/game/feature/fox';
+import { CoinManager } from './src/game/feature/coin';
 
 const gui = new GUI();
 const inputManager = new InputManager();
+const coinManager = new CoinManager();
 
 // === SETUP SCENE ===
 const scene = new THREE.Scene();
@@ -33,12 +33,7 @@ const plane = getEnvironment();
 scene.add(plane);
 
 
-// === PIÈCE ===
-const coin = getMeshCoin();
-scene.add(coin);
-setCoin(coin);
-
-// === VECTEURS ===
+// === VECTEURS (test, inchangé) ===
 const v1 = new Vector3(1, 2, 3);
 const v2 = new Vector3(3, 2, 1);
 console.log('Distance:', v1.distanceTo(v2));
@@ -59,11 +54,18 @@ scene.add(directionalLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+// =====================================
+// === 💥 INITIALISATION DU JEU ===
+// =====================================
 async function init() {
     try {
         await loadFox();
         console.log('Fox chargé et prêt !');
+
+        coinManager.spawnCoins(scene);
+
         inputManager.onLoad();
+
         animate();
     } catch (error) {
         console.error('Erreur lors du chargement du Fox :', error);
@@ -75,10 +77,15 @@ init();
 // === ANIMATION LOOP ===
 function animate() {
     requestAnimationFrame(animate);
+
     inputManager.onUpdate();
+    coinManager.onUpdate();
+    coinManager.checkCollisions();
+
     controls.update();
     renderer.render(scene, camera);
 }
+
 
 // === RESIZE ===
 window.addEventListener('resize', () => {
