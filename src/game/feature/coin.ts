@@ -57,10 +57,22 @@ export class CoinManager implements GameObject {
 
             if (distance < 1) { // Ajuste la distance si besoin selon la taille de ton Fox et tes pièces
                 console.log('Pièce ramassée !');
-                // Retirer la pièce de la scène et du tableau
+
                 coin.parent?.remove(coin);
                 this.coins.splice(i, 1);
+
+                this.score++;
+                this.updateScoreDisplay();
             }
         }
     }
+    private score: number = 0;
+
+    private updateScoreDisplay(): void {
+        const scoreElement = document.getElementById('score');
+        if (scoreElement) {
+            scoreElement.textContent = `Score : ${this.score}`;
+        }
+    }
+
 }
