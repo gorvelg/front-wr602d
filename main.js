@@ -12,6 +12,8 @@ import { CoinManager } from './src/game/feature/coin';
 const gui = new GUI();
 const inputManager = new InputManager();
 const coinManager = new CoinManager();
+let gameOver = false;
+
 
 // === SETUP SCENE ===
 const scene = new THREE.Scene();
@@ -78,13 +80,21 @@ init();
 function animate() {
     requestAnimationFrame(animate);
 
-    inputManager.onUpdate();
-    coinManager.onUpdate();
-    coinManager.checkCollisions();
+    if (!gameOver) {
+        inputManager.onUpdate();
+        coinManager.onUpdate();
+        coinManager.checkCollisions();
+
+
+        if (coinManager.isGameOver()) {
+            gameOver = true;
+        }
+    }
 
     controls.update();
     renderer.render(scene, camera);
 }
+
 
 
 // === RESIZE ===
