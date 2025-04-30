@@ -44,7 +44,7 @@ export function setupRegisterForm(onRegisterSuccess: () => void): void {
         const email = (document.getElementById('register-email') as HTMLInputElement).value;
         const password = (document.getElementById('register-password') as HTMLInputElement).value;
 
-        const response = await fetch('http://localhost:8319/api/users', {
+        const response = await fetch('http://localhost:8319/api/user/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/ld+json' },
             body: JSON.stringify({ username, email, password })
