@@ -19,10 +19,11 @@
         <input type="password" id="login-password" required>
         <button type="submit">Se connecter</button>
     </form>
+    <p>Pas encore de compte ? <button id="show-register" type="button">S'inscrire</button></p>
 </div>
 
 <!-- Inscription -->
-<div id="register-container" class="auth-container">
+<div id="register-container" class="auth-container" style="display: none;">
     <h2>Inscription</h2>
     <form id="register-form">
         <label for="register-username">Nom d'utilisateur :</label>
@@ -33,7 +34,9 @@
         <input type="password" id="register-password" required>
         <button class="login-btn" type="submit">S'inscrire</button>
     </form>
+    <p>Déjà inscrit ? <button id="show-login" type="button">Se connecter</button></p>
 </div>
+
 
 <script type="module" src="main.js"></script>
 </body>

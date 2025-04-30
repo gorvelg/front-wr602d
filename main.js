@@ -9,7 +9,8 @@ import { InputManager } from './src/game/globals/InputManager.ts';
 import { loadFox } from './src/game/feature/fox';
 import { CoinManager } from './src/game/feature/coin';
 import { checkAuthAndDisplayUI } from './src/interface/mainInterface.ts';
-import {setupLoginForm} from "./src/interface/auth";
+import { setupLoginForm, setupRegisterForm } from './src/interface/auth';
+
 
 
 const gui = new GUI();
@@ -84,7 +85,12 @@ if (checkAuthAndDisplayUI()) {
     setupLoginForm(() => {
         init(); // connecté après submit
     });
+
+    setupRegisterForm(() => {
+        // facultatif : init() si tu veux lancer le jeu automatiquement après inscription
+    });
 }
+
 
 // === ANIMATION LOOP ===
 function animate() {

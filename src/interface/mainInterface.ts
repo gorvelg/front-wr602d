@@ -32,4 +32,24 @@ export function checkAuthAndDisplayUI(): boolean {
 
 setupLoginForm(() => {})
 
+function setupAuthToggle(): void {
+    const showRegisterBtn = document.getElementById('show-register');
+    const showLoginBtn = document.getElementById('show-login');
+    const loginContainer = document.getElementById('login-container') as HTMLElement;
+    const registerContainer = document.getElementById('register-container') as HTMLElement;
+
+    showRegisterBtn?.addEventListener('click', () => {
+        loginContainer.style.display = 'none';
+        registerContainer.style.display = 'block';
+    });
+
+    showLoginBtn?.addEventListener('click', () => {
+        registerContainer.style.display = 'none';
+        loginContainer.style.display = 'block';
+    });
+}
+
+setupAuthToggle();
+
+
 
