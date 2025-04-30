@@ -1,6 +1,7 @@
 import { BoxGeometry, MeshStandardMaterial, Mesh, Scene } from 'three';
 import { GameObject } from '../utils/interface';
 import { getFox } from '../globals/gameState';
+import {showGameOverMessage} from "../../interface/mainInterface";
 
 export class CoinManager implements GameObject {
     private coins: Mesh[] = [];
@@ -69,7 +70,7 @@ export class CoinManager implements GameObject {
 
         console.log('cc', this.isGameOver());
         if (this.isGameOver()) {
-            this.showGameOverMessage();
+            showGameOverMessage();
         }
     }
 
@@ -86,15 +87,7 @@ export class CoinManager implements GameObject {
         return this.score == 10;
     }
 
-    private showGameOverMessage(): void {
-        if (document.getElementById('game-over-message')) return;
 
-        const gameOverElement = document.createElement('div');
-        gameOverElement.innerHTML = 'Partie terminée ! Bravo !';
-        gameOverElement.style.position = 'block';
-        gameOverElement.id = 'game-over-message';
-        document.body.appendChild(gameOverElement);
-    }
 
 
 
