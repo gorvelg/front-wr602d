@@ -38,14 +38,14 @@ export function setupRegisterForm(onRegisterSuccess: () => void): void {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const username = (document.getElementById('register-username') as HTMLInputElement).value;
+        const pseudo = (document.getElementById('register-username') as HTMLInputElement).value;
         const email = (document.getElementById('register-email') as HTMLInputElement).value;
         const password = (document.getElementById('register-password') as HTMLInputElement).value;
 
         const response = await fetch('http://localhost:8319/api/user/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/ld+json' },
-            body: JSON.stringify({ username, email, password })
+            body: JSON.stringify({ pseudo, email, password })
         });
 
         if (response.ok) {
