@@ -6,7 +6,7 @@ import {showGameOverMessage} from "../../interface/mainInterface";
 export class CoinManager implements GameObject {
     private coins: Mesh[] = [];
     public coinColor: number = 0xf7ef05;
-    private numberOfCoins: number = 10;
+    private numberOfCoins: number = 40;
 
     constructor() {}
 
@@ -88,6 +88,9 @@ export class CoinManager implements GameObject {
     }
 
 
+    getScore(): number {
+        return this.score;
+    }
 
 
 

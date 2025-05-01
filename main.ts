@@ -65,8 +65,11 @@ async function init() {
 
         timer = new GameTimer(30, () => {
             gameRunning = false;
-            showGameOverMessage();
+            inputManager.setEnabled(false); // 👈 désactive les touches
+            const score = coinManager.getScore(); // si tu as cette méthode
+            showGameOverMessage(`Partie terminée ! Score : ${score}`);
         });
+
         timer.start();
 
         animate();

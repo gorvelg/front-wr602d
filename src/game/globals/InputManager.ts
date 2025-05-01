@@ -5,6 +5,7 @@ import * as THREE from 'three';
 class InputManager implements GameObject {
     private fox: THREE.Object3D | null = null;
     private keysPressed: Record<string, boolean> = {};
+    private enabled: boolean = true; // ✅ état activé/désactivé
 
     constructor() {}
 
@@ -25,8 +26,12 @@ class InputManager implements GameObject {
         });
     }
 
+    setEnabled(value: boolean): void {
+        this.enabled = value;
+    }
+
     onUpdate(): void {
-        if (!this.fox) return;
+        if (!this.enabled || !this.fox) return; // ⛔ si désactivé, rien ne bouge
 
         const moveSpeed = 0.1;
         const rotateSpeed = 0.05;
