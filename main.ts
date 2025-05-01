@@ -64,7 +64,7 @@ async function init() {
         coinManager.spawnCoins(scene, 70, 500);
         inputManager.onLoad();
 
-        timer = new GameTimer(3, async () => {
+        timer = new GameTimer(30, async () => {
             gameRunning = false;
             inputManager.setEnabled(false);
             const score = coinManager.getScore();
