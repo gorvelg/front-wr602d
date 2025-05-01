@@ -4,14 +4,15 @@ import { AmbientLight, AxesHelper, DirectionalLight, Vector3 } from "three";
 import { OrbitControls } from 'three/addons';
 import GUI from 'lil-gui';
 
-import { getEnvironment } from "./src/game/feature/environnent.ts";
+import { getEnvironment } from "./src/game/feature/environnent";
 import { setCube, setScene } from "./src/game/globals/gameState";
-import { InputManager } from './src/game/globals/InputManager.ts';
+import { InputManager } from './src/game/globals/InputManager';
 import { loadFox } from './src/game/feature/fox';
 import { CoinManager } from './src/game/feature/coin';
 import { GameTimer } from './src/game/feature/gameTimer';
-import { checkAuthAndDisplayUI, showGameOverMessage } from './src/interface/mainInterface.ts';
+import { checkAuthAndDisplayUI, showGameOverMessage } from './src/interface/mainInterface';
 import { setupLoginForm, setupRegisterForm } from './src/interface/auth';
+import { sendScoreToAPI } from './src/interface/api';
 
 const gui = new GUI();
 const inputManager = new InputManager();
@@ -63,12 +64,14 @@ async function init() {
         coinManager.spawnCoins(scene, 70, 500);
         inputManager.onLoad();
 
-        timer = new GameTimer(30, () => {
+        timer = new GameTimer(3, async () => {
             gameRunning = false;
             inputManager.setEnabled(false);
             const score = coinManager.getScore();
+            await sendScoreToAPI(score);
             showGameOverMessage(score);
         });
+
 
 
         timer.start();
@@ -84,7 +87,7 @@ if (checkAuthAndDisplayUI()) {
     init(); // déjà connecté
 } else {
     setupLoginForm(() => init());
-    setupRegisterForm(() => {}); // facultatif
+    setupRegisterForm(() => {});
 }
 
 // === ANIMATION LOOP ===
