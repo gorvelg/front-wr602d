@@ -2,7 +2,6 @@ import {checkAuthAndDisplayUI} from "./mainInterface";
 
 export function setupLoginForm(onLoginSuccess: () => void): void {
     const form = document.getElementById('login-form') as HTMLFormElement;
-    console.log('setupLoginForm', form);
     if (!form) return;
 
     form.addEventListener('submit', async (e) => {
@@ -22,10 +21,9 @@ export function setupLoginForm(onLoginSuccess: () => void): void {
         const data = await response.json();
 
         if (response.ok && data.token) {
-            localStorage.setItem('token', data.token);
-            alert('Connexion réussie !');
+            localStorage.setItem('token', data.token)
 
-            checkAuthAndDisplayUI(); // cache les formulaires
+            checkAuthAndDisplayUI();
             onLoginSuccess(); // déclenche init()
         } else {
             alert(data.message || 'Erreur de connexion');
@@ -51,8 +49,7 @@ export function setupRegisterForm(onRegisterSuccess: () => void): void {
         });
 
         if (response.ok) {
-            alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-            showLoginForm(); // Redirige vers le formulaire de connexion
+            showLoginForm();
             onRegisterSuccess();
         } else {
             const error = await response.json();
