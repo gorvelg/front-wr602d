@@ -10,7 +10,7 @@ export async function sendScoreToAPI(score: number): Promise<void> {
         const response = await fetch('http://localhost:8319/api/scores/add', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/ld+json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ score })
