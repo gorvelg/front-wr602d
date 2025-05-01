@@ -67,11 +67,6 @@ export class CoinManager implements GameObject {
                 this.updateScoreDisplay();
             }
         }
-
-        console.log('cc', this.isGameOver());
-        if (this.isGameOver()) {
-            showGameOverMessage();
-        }
     }
 
     private score: number = 0;
@@ -82,11 +77,6 @@ export class CoinManager implements GameObject {
             scoreElement.textContent = `Score : ${this.score}`;
         }
     }
-
-    isGameOver(): boolean {
-        return this.score == 10;
-    }
-
 
     getScore(): number {
         return this.score;

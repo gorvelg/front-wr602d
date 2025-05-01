@@ -1,14 +1,24 @@
 import {setupLoginForm} from "./auth";
 
-export function showGameOverMessage(): void {
+export function showGameOverMessage(score: number): void {
     if (document.getElementById('game-over-message')) return;
 
-const gameOverElement = document.createElement('div');
-gameOverElement.innerHTML = 'Partie terminée ! Bravo !';
-gameOverElement.style.position = 'block';
-gameOverElement.id = 'game-over-message';
-document.body.appendChild(gameOverElement);
+    const gameOverElement = document.createElement('div');
+    gameOverElement.id = 'game-over-message';
+    gameOverElement.className = 'game-over';
+
+    gameOverElement.innerHTML = `
+        <p>⏰ Temps écoulé !</p>
+        <p>Score final : ${score}</p>
+        <button id="replay-btn">Rejouer</button>
+    `;
+
+    document.body.appendChild(gameOverElement);
+
+    const button = document.getElementById('replay-btn') as HTMLButtonElement;
+    button.addEventListener('click', () => window.location.reload());
 }
+
 export function checkAuthAndDisplayUI(): boolean {
     const token = localStorage.getItem('token');
     const isAuthenticated = !!token;
@@ -50,6 +60,8 @@ function setupAuthToggle(): void {
 }
 
 setupAuthToggle();
+
+
 
 
 

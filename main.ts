@@ -60,15 +60,16 @@ async function init() {
         await loadFox();
         console.log('Fox chargé et prêt !');
 
-        coinManager.spawnCoins(scene, 10, 1000);
+        coinManager.spawnCoins(scene, 70, 500);
         inputManager.onLoad();
 
         timer = new GameTimer(30, () => {
             gameRunning = false;
-            inputManager.setEnabled(false); // 👈 désactive les touches
-            const score = coinManager.getScore(); // si tu as cette méthode
-            showGameOverMessage(`Partie terminée ! Score : ${score}`);
+            inputManager.setEnabled(false);
+            const score = coinManager.getScore();
+            showGameOverMessage(score);
         });
+
 
         timer.start();
 
