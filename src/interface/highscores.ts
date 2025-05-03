@@ -28,10 +28,18 @@ async function fetchHighscores(): Promise<void> {
 
         data.member.forEach((scoreEntry: any) => {
             const li = document.createElement('li');
+
+            const pseudo = scoreEntry.user?.pseudo ?? 'Utilisateur inconnu';
             const date = new Date(scoreEntry.date).toLocaleString();
-            li.textContent = `${scoreEntry.user ?? 'Utilisateur inconnu'} — ${scoreEntry.score} pts le ${date}`;
+
+            li.innerHTML = `
+        <div class="score-user">${pseudo}</div>
+        <div class="score-details">${scoreEntry.score} pts — ${date}</div>
+    `;
+
             listElement.appendChild(li);
         });
+
 
     } catch (error) {
         console.error("Erreur réseau :", error);
