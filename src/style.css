@@ -89,3 +89,8 @@ body {
     cursor: pointer;
     font-size: 16px;
 }
+#show-login, #show-register {
+    color: #007BFF;
+    cursor: pointer;
+    text-decoration: underline;
+}
