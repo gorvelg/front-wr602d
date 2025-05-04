@@ -25,7 +25,7 @@ export function checkAuthAndDisplayUI(): boolean {
 
     const loginContainer = document.getElementById('login-container') as HTMLElement;
     const registerContainer = document.getElementById('register-container') as HTMLElement;
-    const hud = document.getElementById('hud') as HTMLElement;
+    const hud = document.getElementById('score-hud') as HTMLElement;
 
     if (isAuthenticated) {
         loginContainer.style.display = 'none';

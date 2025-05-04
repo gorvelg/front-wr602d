@@ -14,7 +14,7 @@ import { checkAuthAndDisplayUI, showGameOverMessage } from './src/interface/main
 import { setupLoginForm, setupRegisterForm } from './src/interface/auth';
 import { sendScoreToAPI } from './src/interface/api';
 
-const gui = new GUI();
+// const gui = new GUI();
 const inputManager = new InputManager();
 const coinManager = new CoinManager();
 
@@ -37,9 +37,9 @@ document.body.appendChild(renderer.domElement);
 const plane = getEnvironment();
 scene.add(plane);
 
-// === AXES HELPER (aide au debug)
-const axesHelper = new AxesHelper(4);
-scene.add(axesHelper);
+// // === AXES HELPER (aide au debug)
+// const axesHelper = new AxesHelper(4);
+// scene.add(axesHelper);
 
 // === LUMIÈRES ===
 scene.add(new AmbientLight(0xffffff, 0.5));
