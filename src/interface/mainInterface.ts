@@ -8,7 +8,7 @@ export function showGameOverMessage(score: number): void {
     gameOverElement.className = 'game-over';
 
     gameOverElement.innerHTML = `
-        <p>Temps écoulé !</p>
+        <div class="game-over-heading">Game Over</div>
         <p>Score final : ${score}</p>
         <button id="replay-btn">Rejouer</button>
     `;
