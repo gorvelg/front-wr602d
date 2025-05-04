@@ -48,3 +48,53 @@ async function fetchHighscores(): Promise<void> {
 }
 
 fetchHighscores();
+
+async function fetchHighscoresWithFilters(): Promise<void> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert("Vous devez être connecté pour voir les scores.");
+        window.location.href = '/';
+        return;
+    }
+
+    const min = (document.getElementById('score-min') as HTMLInputElement).value;
+    const max = (document.getElementById('score-max') as HTMLInputElement).value;
+    const order = (document.getElementById('order') as HTMLSelectElement).value;
+
+    let queryParams = `order[${order}]=${order === 'score' ? 'desc' : 'asc'}`;
+    if (min && max) {
+        queryParams += `&score[between]=${min}..${max}`;
+    } else if (min) {
+        queryParams += `&score[gte]=${min}`;
+    } else if (max) {
+        queryParams += `&score[lte]=${max}`;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8319/api/scores?${queryParams}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/ld+json',
+            },
+        });
+
+        const data = await response.json();
+
+        const list = document.getElementById('highscore-list')!;
+        list.innerHTML = '';
+
+        data.member.forEach((entry: any) => {
+            const li = document.createElement('li');
+            const date = new Date(entry.date).toLocaleString();
+            li.textContent = `${entry.user?.pseudo ?? 'Utilisateur'} — ${entry.score} pts le ${date}`;
+            list.appendChild(li);
+        });
+    } catch (error) {
+        console.error("Erreur de chargement :", error);
+    }
+}
+
+document.getElementById('apply-filters')?.addEventListener('click', fetchHighscoresWithFilters);
+
+// Chargement initial
+fetchHighscoresWithFilters();

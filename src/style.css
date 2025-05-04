@@ -125,3 +125,26 @@ body {
     font-size: 0.9rem;
     color: #666;
 }
+.filters {
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+
+.filters label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.filters input,
+.filters select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
