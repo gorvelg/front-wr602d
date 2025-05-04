@@ -8,20 +8,26 @@
 <body>
 <h1>Highscores</h1>
 <section class="filters">
-    <h2>Filtres</h2>
-    <label for="score-min">Score minimum :</label>
-    <input type="number" id="score-min" placeholder="ex: 20" />
-
-    <label for="score-max">Score maximum :</label>
-    <input type="number" id="score-max" placeholder="ex: 100" />
-
-    <label for="order">Trier par :</label>
-    <select id="order">
-        <option value="score">Score (desc)</option>
-        <option value="date">Date (asc)</option>
-    </select>
-
-    <button id="apply-filters">Appliquer les filtres</button>
+    <div class="filter-items">
+        <div class="filter-item">
+            <label for="score-min">Score min.</label>
+            <input type="number" id="score-min" placeholder="ex: 20" />
+        </div>
+        <div class="filter-item">
+            <label for="score-max">Score max.</label>
+            <input type="number" id="score-max" placeholder="ex: 100" />
+        </div>
+        <div class="filter-item">
+            <label for="order">Trier par</label>
+            <select id="order">
+                <option value="score">Score (desc)</option>
+                <option value="date">Date (asc)</option>
+            </select>
+        </div>
+        <div class="button-container">
+            <button id="apply-filters">Appliquer</button>
+        </div>
+    </div>
 </section>
 
 <div class="highscore">

@@ -215,11 +215,33 @@ ul#highscore-list li:nth-child(3) {
     color: #666;
 }
 .filters {
-    background: #f7f7f7;
     border-radius: 8px;
     padding: 1rem;
-    margin-bottom: 2rem;
-    max-width: 400px;
+    margin: 2rem;
+    background: #1e1e1e;
+    color: white;
+    border: 4px solid white;
+}
+.filter-items{
+    display: flex;
+    gap: 12px;
+}
+.filter-item{
+
+}
+.button-container {
+    display: flex;
+    align-items: flex-end;
+}
+#apply-filters{
+    background-color: #3eb73a;
+    color: white;
+    padding: 10px 20px;
+    border: 4px solid white;
+    border-radius: 12px;
+}
+#apply-filters:hover {
+    background: #6fd06c;
 }
 
 .filters label {
