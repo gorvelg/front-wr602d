@@ -1,3 +1,5 @@
+import { logout } from './auth';
+
 async function fetchHighscores(): Promise<void> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -146,3 +148,10 @@ document.getElementById('apply-filters')?.addEventListener('click', fetchHighsco
 
 // Chargement initial
 fetchHighscoresWithFilters();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.querySelector('.logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logout);
+    }
+});

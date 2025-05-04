@@ -75,8 +75,6 @@ export function logout(): void {
     const registerContainer = document.getElementById('register-container') as HTMLElement;
     const hud = document.getElementById('score-hud') as HTMLElement;
 
-    loginContainer.style.display = 'block';
-    registerContainer.style.display = 'none';
     if (hud) hud.style.display = 'none';
 
     window.location.href = '/';
