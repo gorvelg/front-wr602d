@@ -65,3 +65,21 @@ function showLoginForm(): void {
     loginContainer.style.display = 'block';
     registerContainer.style.display = 'none';
 }
+export function logout(): void {
+    const logoutBtn = document.querySelector('.logout') as HTMLElement;
+    console.log(logoutBtn);
+
+    localStorage.removeItem('token');
+
+    const loginContainer = document.getElementById('login-container') as HTMLElement;
+    const registerContainer = document.getElementById('register-container') as HTMLElement;
+    const hud = document.getElementById('score-hud') as HTMLElement;
+
+    loginContainer.style.display = 'block';
+    registerContainer.style.display = 'none';
+    if (hud) hud.style.display = 'none';
+
+    window.location.href = '/';
+
+}
+

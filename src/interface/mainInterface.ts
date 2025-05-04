@@ -1,4 +1,5 @@
 import {setupLoginForm} from "./auth";
+import { logout } from './auth';
 
 export function showGameOverMessage(score: number): void {
     if (document.getElementById('game-over-message')) return;
@@ -60,6 +61,13 @@ function setupAuthToggle(): void {
 }
 
 setupAuthToggle();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.querySelector('.hub-item.logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logout);
+    }
+});
 
 
 
