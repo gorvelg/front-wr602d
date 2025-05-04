@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="score-hud">
-    <svg class="score-coin" width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <svg class="icon-hud" width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <!-- Cercle jaune clair extérieur -->
         <circle cx="100" cy="100" r="100" fill="#FFE44D" />
         <!-- Cercle orange intérieur -->
@@ -19,7 +19,34 @@
 
     <div id="score">0</div>
 </div>
-<div id="timer">Temps restant : 30s</div>
+<div class="time-hud">
+    <svg class="icon-hud" width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cercle extérieur -->
+        <circle cx="100" cy="100" r="100" fill="#A8E6A1" />
+        <!-- Cadran intérieur -->
+        <circle cx="100" cy="100" r="75" fill="#6AC16A" />
+
+        <!-- Aiguille des secondes animée -->
+        <line x1="100" y1="100" x2="100" y2="30"
+              stroke="#2e7d32"
+              stroke-width="4"
+              stroke-linecap="round">
+            <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 100 100"
+                    to="180 100 100"
+                    dur="30s"
+                    fill="freeze"
+            />
+        </line>
+
+        <!-- Centre de l'horloge -->
+        <circle cx="100" cy="100" r="6" fill="#2e7d32" />
+    </svg>
+
+    <div id="timer">30s</div>
+</div>
 <!-- Connexion -->
 <div id="login-container" class="auth-container">
     <h2>Se connecter</h2>
