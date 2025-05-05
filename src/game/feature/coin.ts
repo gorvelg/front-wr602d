@@ -49,7 +49,7 @@ export class CoinManager implements GameObject {
     private getMeshCoin(): Mesh {
         const loader = new TextureLoader();
         const geometryCoin = new CylinderGeometry(0.3, 0.3, 0.09, 32);
-        const materialCoin = new MeshStandardMaterial({ color: this.coinColor, map: loader.load('../../../coin.png') });
+        const materialCoin = new MeshStandardMaterial({ color: this.coinColor, map: loader.load('../../../public/assets/coin.png') });
         const coin = new Mesh(geometryCoin, materialCoin);
 
         coin.rotation.x = Math.PI / 2;
