@@ -1,4 +1,4 @@
-import { BoxGeometry, MeshStandardMaterial, Mesh, Scene } from 'three';
+import { CylinderGeometry, MeshStandardMaterial, Mesh, Scene } from 'three';
 import { GameObject } from '../utils/interface';
 import { getFox } from '../globals/gameState';
 import {showGameOverMessage} from "../../interface/mainInterface";
@@ -15,7 +15,8 @@ export class CoinManager implements GameObject {
 
     onUpdate(): void {
         this.coins.forEach(coin => {
-            coin.rotation.y += 0.01;
+            coin.rotation.z += 0.05;
+
         });
     }
 
@@ -46,10 +47,15 @@ export class CoinManager implements GameObject {
     }
 
     private getMeshCoin(): Mesh {
-        const geometryCoin = new BoxGeometry(0.1, 0.5, 0.5);
+        const geometryCoin = new CylinderGeometry(0.3, 0.3, 0.09, 32);
         const materialCoin = new MeshStandardMaterial({ color: this.coinColor });
-        return new Mesh(geometryCoin, materialCoin);
+        const coin = new Mesh(geometryCoin, materialCoin);
+
+        coin.rotation.x = Math.PI / 2;
+
+        return coin;
     }
+
 
     checkCollisions(): void {
         const fox = getFox();
