@@ -27,15 +27,21 @@ export function checkAuthAndDisplayUI(): boolean {
     const loginContainer = document.getElementById('login-container') as HTMLElement;
     const registerContainer = document.getElementById('register-container') as HTMLElement;
     const hud = document.getElementById('score-hud') as HTMLElement;
+    const timer = document.querySelector('.time-hud') as HTMLElement;
+    const logoutBtn = document.querySelector('.hub-item.logout') as HTMLElement;
 
     if (isAuthenticated) {
         loginContainer.style.display = 'none';
         registerContainer.style.display = 'none';
+        timer.style.display = 'block';
         hud.style.display = 'block';
+        logoutBtn.style.display = 'block';
     } else {
         loginContainer.style.display = 'block';
         registerContainer.style.display = 'none';
+        timer.style.display = 'none';
         hud.style.display = 'none';
+        logoutBtn.style.display = 'none';
     }
 
     return isAuthenticated;
