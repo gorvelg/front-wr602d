@@ -1,4 +1,4 @@
-import { CylinderGeometry, MeshStandardMaterial, Mesh, Scene } from 'three';
+import { CylinderGeometry, MeshStandardMaterial, TextureLoader, Mesh, Scene } from 'three';
 import { GameObject } from '../utils/interface';
 import { getFox } from '../globals/gameState';
 import {showGameOverMessage} from "../../interface/mainInterface";
@@ -47,8 +47,9 @@ export class CoinManager implements GameObject {
     }
 
     private getMeshCoin(): Mesh {
+        const loader = new TextureLoader();
         const geometryCoin = new CylinderGeometry(0.3, 0.3, 0.09, 32);
-        const materialCoin = new MeshStandardMaterial({ color: this.coinColor });
+        const materialCoin = new MeshStandardMaterial({ color: this.coinColor, map: loader.load('../../../coin.png') });
         const coin = new Mesh(geometryCoin, materialCoin);
 
         coin.rotation.x = Math.PI / 2;
