@@ -11,6 +11,13 @@ export function showGameOverMessage(score: number): void {
 
     gameOverElement.innerHTML = `
         <div class="game-over-heading">Game Over</div>
+        <div>
+            <p class="email-msg">Envoyez votre score à un ami !</p>
+            <div class="email-form">
+                <input type="email" id="email-to" placeholder="trucbidule@machin.fr" required />
+                <button id="send-score-email">Envoyer</button>
+            </div>
+        </div>
         <p>Score final : ${score}</p>
         <button id="replay-btn">Rejouer</button>
     `;
@@ -22,8 +29,6 @@ export function showGameOverMessage(score: number): void {
 }
 
 export function showEmailSentMessage(score: number): void {
-    const emailForm = document.getElementById('email-form')!;
-    emailForm.style.display = 'block';
 
     document.getElementById('send-score-email')?.addEventListener('click', () => {
         sendScoreEmail(score);
