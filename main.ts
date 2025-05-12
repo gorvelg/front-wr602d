@@ -10,7 +10,7 @@ import { InputManager } from './src/game/globals/InputManager';
 import { loadFox } from './src/game/feature/fox';
 import { CoinManager } from './src/game/feature/coin';
 import { GameTimer } from './src/game/feature/gameTimer';
-import { checkAuthAndDisplayUI, showGameOverMessage } from './src/interface/mainInterface';
+import {checkAuthAndDisplayUI, showEmailSentMessage, showGameOverMessage} from './src/interface/mainInterface';
 import { setupLoginForm, setupRegisterForm } from './src/interface/auth';
 import { sendScoreToAPI } from './src/interface/api';
 
@@ -70,6 +70,7 @@ async function init() {
             const score = coinManager.getScore();
             await sendScoreToAPI(score);
             showGameOverMessage(score);
+            showEmailSentMessage(score);
         });
 
 

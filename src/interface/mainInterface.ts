@@ -1,5 +1,6 @@
 import {setupLoginForm} from "./auth";
 import { logout } from './auth';
+import {sendScoreEmail} from "./mail";
 
 export function showGameOverMessage(score: number): void {
     if (document.getElementById('game-over-message')) return;
@@ -18,6 +19,15 @@ export function showGameOverMessage(score: number): void {
 
     const button = document.getElementById('replay-btn') as HTMLButtonElement;
     button.addEventListener('click', () => window.location.reload());
+}
+
+export function showEmailSentMessage(score: number): void {
+    const emailForm = document.getElementById('email-form')!;
+    emailForm.style.display = 'block';
+
+    document.getElementById('send-score-email')?.addEventListener('click', () => {
+        sendScoreEmail(score);
+    });
 }
 
 export function checkAuthAndDisplayUI(): boolean {
