@@ -1,6 +1,6 @@
-import { GameObject } from '../utils/interface';
-import { getFox } from '../globals/gameState';
-import * as THREE from 'three';
+import { GameObject } from "../utils/interface";
+import { getFox } from "../globals/gameState";
+import * as THREE from "three";
 
 class InputManager implements GameObject {
     private fox: THREE.Object3D | null = null;
@@ -13,15 +13,15 @@ class InputManager implements GameObject {
         this.fox = getFox();
 
         if (!this.fox) {
-            console.error('Fox non trouvé dans le GameState');
+            console.error("Fox non trouvé dans le GameState");
             return;
         }
 
-        window.addEventListener('keydown', (event) => {
+        window.addEventListener("keydown", (event) => {
             this.keysPressed[event.code] = true;
         });
 
-        window.addEventListener('keyup', (event) => {
+        window.addEventListener("keyup", (event) => {
             this.keysPressed[event.code] = false;
         });
     }
@@ -36,20 +36,20 @@ class InputManager implements GameObject {
         const moveSpeed = 0.1;
         const rotateSpeed = 0.05;
 
-        if (this.keysPressed['ArrowLeft'] || this.keysPressed['KeyA']) {
+        if (this.keysPressed["ArrowLeft"] || this.keysPressed["KeyA"]) {
             this.fox.rotation.y += rotateSpeed;
         }
-        if (this.keysPressed['ArrowRight'] || this.keysPressed['KeyD']) {
+        if (this.keysPressed["ArrowRight"] || this.keysPressed["KeyD"]) {
             this.fox.rotation.y -= rotateSpeed;
         }
 
         const direction = new THREE.Vector3(0, 0, 1);
         direction.applyEuler(this.fox.rotation);
 
-        if (this.keysPressed['ArrowUp'] || this.keysPressed['KeyW']) {
+        if (this.keysPressed["ArrowUp"] || this.keysPressed["KeyW"]) {
             this.fox.position.addScaledVector(direction, moveSpeed);
         }
-        if (this.keysPressed['ArrowDown'] || this.keysPressed['KeyS']) {
+        if (this.keysPressed["ArrowDown"] || this.keysPressed["KeyS"]) {
             this.fox.position.addScaledVector(direction, -moveSpeed);
         }
     }

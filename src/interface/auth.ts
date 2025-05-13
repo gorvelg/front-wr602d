@@ -1,51 +1,52 @@
-import {checkAuthAndDisplayUI} from "./mainInterface";
+import { checkAuthAndDisplayUI } from "./mainInterface";
 
 export function setupLoginForm(onLoginSuccess: () => void): void {
-    const form = document.getElementById('login-form') as HTMLFormElement;
+    const form = document.getElementById("login-form") as HTMLFormElement;
     if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const username = (document.getElementById('login-email') as HTMLInputElement).value;
-        const password = (document.getElementById('login-password') as HTMLInputElement).value;
+        const username = (document.getElementById("login-email") as HTMLInputElement).value;
+        const password = (document.getElementById("login-password") as HTMLInputElement).value;
 
-        const response = await fetch('http://localhost:8319/api/login_check', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("http://localhost:8319/api/login_check", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                username, password
-            })
+                username,
+                password,
+            }),
         });
 
         const data = await response.json();
 
         if (response.ok && data.token) {
-            localStorage.setItem('token', data.token)
+            localStorage.setItem("token", data.token);
 
             checkAuthAndDisplayUI();
             onLoginSuccess(); // déclenche init()
         } else {
-            alert(data.message || 'Erreur de connexion');
+            alert(data.message || "Erreur de connexion");
         }
     });
 }
 
 export function setupRegisterForm(onRegisterSuccess: () => void): void {
-    const form = document.getElementById('register-form') as HTMLFormElement;
+    const form = document.getElementById("register-form") as HTMLFormElement;
     if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const pseudo = (document.getElementById('register-username') as HTMLInputElement).value;
-        const email = (document.getElementById('register-email') as HTMLInputElement).value;
-        const password = (document.getElementById('register-password') as HTMLInputElement).value;
+        const pseudo = (document.getElementById("register-username") as HTMLInputElement).value;
+        const email = (document.getElementById("register-email") as HTMLInputElement).value;
+        const password = (document.getElementById("register-password") as HTMLInputElement).value;
 
-        const response = await fetch('http://localhost:8319/api/user/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/ld+json' },
-            body: JSON.stringify({ pseudo, email, password })
+        const response = await fetch("http://localhost:8319/api/user/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/ld+json" },
+            body: JSON.stringify({ pseudo, email, password }),
         });
 
         if (response.ok) {
@@ -59,23 +60,21 @@ export function setupRegisterForm(onRegisterSuccess: () => void): void {
 }
 
 function showLoginForm(): void {
-    const loginContainer = document.getElementById('login-container') as HTMLElement;
-    const registerContainer = document.getElementById('register-container') as HTMLElement;
+    const loginContainer = document.getElementById("login-container") as HTMLElement;
+    const registerContainer = document.getElementById("register-container") as HTMLElement;
 
-    loginContainer.style.display = 'block';
-    registerContainer.style.display = 'none';
+    loginContainer.style.display = "block";
+    registerContainer.style.display = "none";
 }
 export function logout(): void {
-    const logoutBtn = document.querySelector('.logout') as HTMLElement;
+    const logoutBtn = document.querySelector(".logout") as HTMLElement;
     console.log(logoutBtn);
 
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
-    const hud = document.getElementById('score-hud') as HTMLElement;
+    const hud = document.getElementById("score-hud") as HTMLElement;
 
-    if (hud) hud.style.display = 'none';
+    if (hud) hud.style.display = "none";
 
-    window.location.href = '/';
-
+    window.location.href = "/";
 }
-

@@ -1,28 +1,26 @@
 // Importation de Three.js
-import * as THREE from 'three';
+import * as THREE from "three";
 import { AmbientLight, DirectionalLight } from "three";
-import { OrbitControls } from 'three/addons';
+import { OrbitControls } from "three/addons";
 
-import { SoundManager } from './src/game/globals/SoundManager';
-
+import { SoundManager } from "./src/game/globals/SoundManager";
 
 import { getEnvironment } from "./src/game/feature/environnent";
 import { setScene } from "./src/game/globals/gameState";
-import { InputManager } from './src/game/globals/InputManager';
-import { loadFox } from './src/game/feature/fox';
-import { CoinManager } from './src/game/feature/coin';
-import { GameTimer } from './src/game/feature/gameTimer';
-import {checkAuthAndDisplayUI, showEmailSentMessage, showGameOverMessage} from './src/interface/mainInterface';
-import { setupLoginForm, setupRegisterForm } from './src/interface/auth';
-import { sendScoreToAPI } from './src/interface/api';
-
+import { InputManager } from "./src/game/globals/InputManager";
+import { loadFox } from "./src/game/feature/fox";
+import { CoinManager } from "./src/game/feature/coin";
+import { GameTimer } from "./src/game/feature/gameTimer";
+import { checkAuthAndDisplayUI, showEmailSentMessage, showGameOverMessage } from "./src/interface/mainInterface";
+import { setupLoginForm, setupRegisterForm } from "./src/interface/auth";
+import { sendScoreToAPI } from "./src/interface/api";
 
 const inputManager = new InputManager();
 const coinManager = new CoinManager();
 
 // === SETUP SCENE ===
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x87CEEB);
+scene.background = new THREE.Color(0x87ceeb);
 setScene(scene);
 
 // === CAMERA ===
@@ -59,15 +57,14 @@ let gameRunning = true;
 
 const soundManager = new SoundManager(camera);
 
-
 // === INITIALISATION DU JEU ===
 async function init() {
     try {
         await loadFox();
-        console.log('Fox chargé et prêt !');
+        console.log("Fox chargé et prêt !");
 
-        await soundManager.loadSound('coin', 'assets/sounds/coin.mp3');
-        await soundManager.loadSound('gameover', 'assets/sounds/game-over.mp3')
+        await soundManager.loadSound("coin", "assets/sounds/coin.mp3");
+        await soundManager.loadSound("gameover", "assets/sounds/game-over.mp3");
         coinManager.setSoundManager(soundManager);
 
         coinManager.spawnCoins(scene, 70, 500);
@@ -77,7 +74,7 @@ async function init() {
             gameRunning = false;
             inputManager.setEnabled(false);
             const score = coinManager.getScore();
-            soundManager.play('gameover');
+            soundManager.play("gameover");
             await sendScoreToAPI(score);
             showGameOverMessage(score);
             showEmailSentMessage(score);
@@ -86,10 +83,9 @@ async function init() {
         timer.start();
         animate();
     } catch (error) {
-        console.error('Erreur lors du chargement du Fox ou des sons :', error);
+        console.error("Erreur lors du chargement du Fox ou des sons :", error);
     }
 }
-
 
 // === AUTH CHECK ===
 if (checkAuthAndDisplayUI()) {
@@ -100,12 +96,16 @@ if (checkAuthAndDisplayUI()) {
 }
 
 // === DÉBLOCAGE DU CONTEXTE AUDIO ===
-document.addEventListener('click', () => {
-    const context = THREE.AudioContext.getContext();
-    if (context.state === 'suspended') {
-        context.resume();
-    }
-}, { once: true });
+document.addEventListener(
+    "click",
+    () => {
+        const context = THREE.AudioContext.getContext();
+        if (context.state === "suspended") {
+            context.resume();
+        }
+    },
+    { once: true },
+);
 
 // === ANIMATION LOOP ===
 function animate() {
@@ -121,9 +121,8 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-
 // === RESPONSIVE ===
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();

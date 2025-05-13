@@ -1,6 +1,6 @@
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { getScene, setFox } from '../globals/gameState';
-import * as THREE from 'three';
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { getScene, setFox } from "../globals/gameState";
+import * as THREE from "three";
 
 /**
  * Charge le modèle Fox.glb et retourne une promesse qui résout avec l'Object3D chargé.
@@ -10,13 +10,13 @@ export function loadFox(): Promise<THREE.Object3D> {
 
     return new Promise((resolve, reject) => {
         loader.load(
-            '/models/Fox.glb',
+            "/models/Fox.glb",
             (gltf) => {
                 const fox = gltf.scene;
                 fox.scale.set(0.02, 0.02, 0.02);
                 getScene().add(fox);
                 setFox(fox);
-                console.log('Fox chargé :', fox);
+                console.log("Fox chargé :", fox);
                 resolve(fox);
             },
             (progress) => {
@@ -28,9 +28,9 @@ export function loadFox(): Promise<THREE.Object3D> {
                 }
             },
             (error) => {
-                console.error('Erreur de chargement du modèle Fox :', error);
+                console.error("Erreur de chargement du modèle Fox :", error);
                 reject(error);
-            }
+            },
         );
     });
 }

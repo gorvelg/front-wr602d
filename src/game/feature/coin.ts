@@ -1,7 +1,7 @@
-import { CylinderGeometry, MeshStandardMaterial, TextureLoader, Mesh } from 'three';
-import { GameObject } from '../utils/interface';
-import { getFox } from '../globals/gameState';
-import {SoundManager} from "../globals/soundManager";
+import { CylinderGeometry, MeshStandardMaterial, TextureLoader, Mesh } from "three";
+import { GameObject } from "../utils/interface";
+import { getFox } from "../globals/gameState";
+import { SoundManager } from "../globals/soundManager";
 
 export class CoinManager implements GameObject {
     private coins: Mesh[] = [];
@@ -11,13 +11,11 @@ export class CoinManager implements GameObject {
 
     constructor() {}
 
-    onLoad(): void {
-    }
+    onLoad(): void {}
 
     onUpdate(): void {
-        this.coins.forEach(coin => {
+        this.coins.forEach((coin) => {
             coin.rotation.z += 0.05;
-
         });
     }
 
@@ -31,11 +29,7 @@ export class CoinManager implements GameObject {
             }
 
             const coin = this.getMeshCoin();
-            coin.position.set(
-                Math.random() * 10 - 5,
-                0.5,
-                Math.random() * 10 - 5
-            );
+            coin.position.set(Math.random() * 10 - 5, 0.5, Math.random() * 10 - 5);
             scene.add(coin);
             this.coins.push(coin);
 
@@ -50,7 +44,10 @@ export class CoinManager implements GameObject {
     private getMeshCoin(): Mesh {
         const loader = new TextureLoader();
         const geometryCoin = new CylinderGeometry(0.3, 0.3, 0.09, 32);
-        const materialCoin = new MeshStandardMaterial({ color: this.coinColor, map: loader.load('../../../public/assets/coin.png') });
+        const materialCoin = new MeshStandardMaterial({
+            color: this.coinColor,
+            map: loader.load("../../../public/assets/coin.png"),
+        });
         const coin = new Mesh(geometryCoin, materialCoin);
 
         coin.rotation.x = Math.PI / 2;
@@ -61,7 +58,6 @@ export class CoinManager implements GameObject {
     setSoundManager(manager: SoundManager) {
         this.soundManager = manager;
     }
-
 
     checkCollisions(): void {
         const fox = getFox();
@@ -76,7 +72,7 @@ export class CoinManager implements GameObject {
                 this.coins.splice(i, 1);
                 this.score++;
                 this.updateScoreDisplay();
-                this.soundManager?.play('coin');
+                this.soundManager?.play("coin");
             }
         }
     }
@@ -84,7 +80,7 @@ export class CoinManager implements GameObject {
     private score: number = 0;
 
     private updateScoreDisplay(): void {
-        const scoreElement = document.getElementById('score');
+        const scoreElement = document.getElementById("score");
         if (scoreElement) {
             scoreElement.textContent = `Score : ${this.score}`;
         }
@@ -93,7 +89,4 @@ export class CoinManager implements GameObject {
     getScore(): number {
         return this.score;
     }
-
-
-
 }

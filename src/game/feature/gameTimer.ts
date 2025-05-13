@@ -1,4 +1,3 @@
-
 export class GameTimer {
     private duration: number; // en secondes
     private intervalId: number | null = null;
@@ -12,7 +11,7 @@ export class GameTimer {
     }
 
     public start(): void {
-        const timerElement = document.getElementById('timer');
+        const timerElement = document.getElementById("timer");
         if (!timerElement) return;
 
         timerElement.textContent = `Temps restant : ${this.remaining}s`;

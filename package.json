@@ -1,23 +1,24 @@
 {
-  "name": "wr602d",
-  "version": "1.0.0",
-  "description": "a video game with three.js",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "lil-gui": "^0.20.0",
-    "three": "^0.174.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.26.0",
-    "eslint": "^9.26.0",
-    "globals": "^16.1.0",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.32.1",
-    "vite": "^6.3.3"
-  }
+    "name": "wr602d",
+    "version": "1.0.0",
+    "description": "a video game with three.js",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "lil-gui": "^0.20.0",
+        "three": "^0.174.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.26.0",
+        "eslint": "^9.26.0",
+        "globals": "^16.1.0",
+        "prettier": "3.5.3",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.32.1",
+        "vite": "^6.3.3"
+    }
 }

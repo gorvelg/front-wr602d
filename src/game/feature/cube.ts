@@ -1,4 +1,4 @@
-import { BoxGeometry, MeshStandardMaterial, Mesh } from 'three';
+import { BoxGeometry, MeshStandardMaterial, Mesh } from "three";
 
 function getMeshCube() {
     const geometryBox = new BoxGeometry(4, 1, 4);

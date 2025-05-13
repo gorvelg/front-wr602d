@@ -1,6 +1,6 @@
 export async function sendScoreEmail(score: number) {
-    const to = (document.getElementById('email-to') as HTMLInputElement).value;
-    const subject = 'Votre score au jeu';
+    const to = (document.getElementById("email-to") as HTMLInputElement).value;
+    const subject = "Votre score au jeu";
     const message = `
   <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; border-radius: 10px; color: #333;">
     <h2 style="color: #f77f00;">🦊 The Greedy Fox - Résultat de partie</h2>
@@ -17,13 +17,13 @@ export async function sendScoreEmail(score: number) {
 `;
 
     try {
-        const response = await fetch('http://localhost:8319/microservice/send-mail', {
-            method: 'POST',
+        const response = await fetch("http://localhost:8319/microservice/send-mail", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'authorization-api-mailer': 'ggerggregeg'
+                "Content-Type": "application/json",
+                "authorization-api-mailer": "ggerggregeg",
             },
-            body: JSON.stringify({ to, subject, message })
+            body: JSON.stringify({ to, subject, message }),
         });
 
         if (response.ok) {

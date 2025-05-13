@@ -1,18 +1,18 @@
-import { logout } from './auth';
+import { logout } from "./auth";
 
 async function fetchHighscores(): Promise<void> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
         alert("Vous devez être connecté pour voir les scores.");
-        window.location.href = '/';
+        window.location.href = "/";
         return;
     }
 
     try {
-        const response = await fetch('http://localhost:8319/api/scores', {
+        const response = await fetch("http://localhost:8319/api/scores", {
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/ld+json',
+                Authorization: `Bearer ${token}`,
+                Accept: "application/ld+json",
             },
         });
 
@@ -25,13 +25,13 @@ async function fetchHighscores(): Promise<void> {
 
         const data = await response.json();
 
-        const list = document.getElementById('highscore-list')!;
-        list.innerHTML = '';
+        const list = document.getElementById("highscore-list")!;
+        list.innerHTML = "";
 
         data.member.forEach((scoreEntry: any, index: number) => {
-            const li = document.createElement('li');
+            const li = document.createElement("li");
 
-            const pseudo = scoreEntry.user?.pseudo ?? 'Utilisateur inconnu';
+            const pseudo = scoreEntry.user?.pseudo ?? "Utilisateur inconnu";
             const date = new Date(scoreEntry.date).toLocaleString();
             const position = index + 1;
 
@@ -43,7 +43,6 @@ async function fetchHighscores(): Promise<void> {
 
             list.appendChild(li);
         });
-
     } catch (error) {
         console.error("Erreur réseau :", error);
         alert("Impossible de charger les scores.");
@@ -51,18 +50,18 @@ async function fetchHighscores(): Promise<void> {
 }
 
 async function fetchHighscoresWithFilters(): Promise<void> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
         alert("Vous devez être connecté pour voir les scores.");
-        window.location.href = '/';
+        window.location.href = "/";
         return;
     }
 
-    const min = (document.getElementById('score-min') as HTMLInputElement).value;
-    const max = (document.getElementById('score-max') as HTMLInputElement).value;
-    const order = (document.getElementById('order') as HTMLSelectElement).value;
+    const min = (document.getElementById("score-min") as HTMLInputElement).value;
+    const max = (document.getElementById("score-max") as HTMLInputElement).value;
+    const order = (document.getElementById("order") as HTMLSelectElement).value;
 
-    let queryParams = `order[${order}]=${order === 'score' ? 'desc' : 'asc'}`;
+    let queryParams = `order[${order}]=${order === "score" ? "desc" : "asc"}`;
     if (min && max) {
         queryParams += `&score[between]=${min}..${max}`;
     } else if (min) {
@@ -74,20 +73,20 @@ async function fetchHighscoresWithFilters(): Promise<void> {
     try {
         const response = await fetch(`http://localhost:8319/api/scores?${queryParams}`, {
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/ld+json',
+                Authorization: `Bearer ${token}`,
+                Accept: "application/ld+json",
             },
         });
 
         const data = await response.json();
 
-        const list = document.getElementById('highscore-list')!;
-        list.innerHTML = '';
+        const list = document.getElementById("highscore-list")!;
+        list.innerHTML = "";
 
         data.member.forEach((scoreEntry: any, index: number) => {
-            const li = document.createElement('li');
+            const li = document.createElement("li");
 
-            const pseudo = scoreEntry.user?.pseudo ?? 'Utilisateur inconnu';
+            const pseudo = scoreEntry.user?.pseudo ?? "Utilisateur inconnu";
             const date = new Date(scoreEntry.date).toLocaleString();
             const position = index + 1;
 
@@ -130,28 +129,26 @@ async function fetchHighscoresWithFilters(): Promise<void> {
     `;
 
             li.innerHTML = `
-        <div class="score-position">#${position} ${index === 0 ? crownSvg : ''}</div>
+        <div class="score-position">#${position} ${index === 0 ? crownSvg : ""}</div>
         <div class="score-user">${pseudo}</div>
         <div class="score-details">${scoreEntry.score} pts — ${date}</div>
     `;
 
             list.appendChild(li);
         });
-
-
     } catch (error) {
         console.error("Erreur de chargement :", error);
     }
 }
 
-document.getElementById('apply-filters')?.addEventListener('click', fetchHighscoresWithFilters);
+document.getElementById("apply-filters")?.addEventListener("click", fetchHighscoresWithFilters);
 
 // Chargement initial
 fetchHighscoresWithFilters();
 
-document.addEventListener('DOMContentLoaded', () => {
-    const logoutBtn = document.querySelector('.logout');
+document.addEventListener("DOMContentLoaded", () => {
+    const logoutBtn = document.querySelector(".logout");
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', logout);
+        logoutBtn.addEventListener("click", logout);
     }
 });

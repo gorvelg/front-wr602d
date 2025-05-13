@@ -1,47 +1,35 @@
+let cube;
+let coin;
+let scene;
+let fox;
 
-
-let cube
-let coin
-let scene
-let fox
-
-function setCube (newCube) {
-    cube = newCube
+function setCube(newCube) {
+    cube = newCube;
 }
 
-function getCube () {
-    return cube
+function getCube() {
+    return cube;
 }
 
-function setCoin (newCube) {
-    coin = newCube
+function setCoin(newCube) {
+    coin = newCube;
 }
 
-function getCoin () {
-    return coin
+function getCoin() {
+    return coin;
 }
 
-function setScene (newScene) {
-    scene = newScene
+function setScene(newScene) {
+    scene = newScene;
 }
-function getScene () {
-    return scene
+function getScene() {
+    return scene;
 }
-function setFox (newFox) {
-    fox = newFox
+function setFox(newFox) {
+    fox = newFox;
 }
-function getFox () {
-    return fox
+function getFox() {
+    return fox;
 }
 
-
-export {
-    setCube,
-    getCube,
-    setCoin,
-    getCoin,
-    setScene,
-    getScene,
-    setFox,
-    getFox
-}
+export { setCube, getCube, setCoin, getCoin, setScene, getScene, setFox, getFox };
