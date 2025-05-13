@@ -20,7 +20,7 @@ export class SoundManager {
     play(name: string): void {
         const sound = this.sounds.get(name);
         if (sound) {
-            sound.isPlaying && sound.stop(); // stop if already playing
+            sound.isPlaying && sound.stop();
             sound.play();
         } else {
             console.warn(`Son "${name}" introuvable.`);
