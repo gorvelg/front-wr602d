@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { AmbientLight, AxesHelper, DirectionalLight, Vector3 } from "three";
 import { OrbitControls } from 'three/addons';
 import GUI from 'lil-gui';
+import { SoundManager } from './src/game/globals/SoundManager';
+
 
 import { getEnvironment } from "./src/game/feature/environnent";
 import { setCube, setScene } from "./src/game/globals/gameState";
@@ -55,11 +57,17 @@ controls.enableDamping = true;
 let timer: GameTimer;
 let gameRunning = true;
 
+const soundManager = new SoundManager(camera);
+
+
 // === INITIALISATION DU JEU ===
 async function init() {
     try {
         await loadFox();
         console.log('Fox chargé et prêt !');
+
+        await soundManager.loadSound('coin', 'assets/sounds/coin.mp3');
+        coinManager.setSoundManager(soundManager);
 
         coinManager.spawnCoins(scene, 70, 500);
         inputManager.onLoad();
@@ -73,15 +81,13 @@ async function init() {
             showEmailSentMessage(score);
         });
 
-
-
         timer.start();
-
         animate();
     } catch (error) {
-        console.error('Erreur lors du chargement du Fox :', error);
+        console.error('Erreur lors du chargement du Fox ou des sons :', error);
     }
 }
+
 
 // === AUTH CHECK ===
 if (checkAuthAndDisplayUI()) {

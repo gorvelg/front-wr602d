@@ -2,11 +2,13 @@ import { CylinderGeometry, MeshStandardMaterial, TextureLoader, Mesh, Scene } fr
 import { GameObject } from '../utils/interface';
 import { getFox } from '../globals/gameState';
 import {showGameOverMessage} from "../../interface/mainInterface";
+import {SoundManager} from "../globals/soundManager";
 
 export class CoinManager implements GameObject {
     private coins: Mesh[] = [];
     public coinColor: number = 0xf7ef05;
     private numberOfCoins: number = 40;
+    private soundManager?: SoundManager;
 
     constructor() {}
 
@@ -57,6 +59,10 @@ export class CoinManager implements GameObject {
         return coin;
     }
 
+    setSoundManager(manager: SoundManager) {
+        this.soundManager = manager;
+    }
+
 
     checkCollisions(): void {
         const fox = getFox();
@@ -67,11 +73,11 @@ export class CoinManager implements GameObject {
             const distance = fox.position.distanceTo(coin.position);
 
             if (distance < 1) {
-                console.log('Pièce ramassée !');
                 coin.parent?.remove(coin);
                 this.coins.splice(i, 1);
                 this.score++;
                 this.updateScoreDisplay();
+                this.soundManager?.play('coin');
             }
         }
     }
