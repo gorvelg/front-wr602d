@@ -97,6 +97,14 @@ if (checkAuthAndDisplayUI()) {
     setupRegisterForm(() => {});
 }
 
+// === DÉBLOCAGE DU CONTEXTE AUDIO ===
+document.addEventListener('click', () => {
+    const context = THREE.AudioContext.getContext();
+    if (context.state === 'suspended') {
+        context.resume();
+    }
+}, { once: true });
+
 // === ANIMATION LOOP ===
 function animate() {
     requestAnimationFrame(animate);
@@ -110,6 +118,7 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
+
 
 // === RESPONSIVE ===
 window.addEventListener('resize', () => {
