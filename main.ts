@@ -1,13 +1,13 @@
 // Importation de Three.js
 import * as THREE from 'three';
-import { AmbientLight, AxesHelper, DirectionalLight, Vector3 } from "three";
+import { AmbientLight, DirectionalLight } from "three";
 import { OrbitControls } from 'three/addons';
-import GUI from 'lil-gui';
+
 import { SoundManager } from './src/game/globals/SoundManager';
 
 
 import { getEnvironment } from "./src/game/feature/environnent";
-import { setCube, setScene } from "./src/game/globals/gameState";
+import { setScene } from "./src/game/globals/gameState";
 import { InputManager } from './src/game/globals/InputManager';
 import { loadFox } from './src/game/feature/fox';
 import { CoinManager } from './src/game/feature/coin';
@@ -16,7 +16,7 @@ import {checkAuthAndDisplayUI, showEmailSentMessage, showGameOverMessage} from '
 import { setupLoginForm, setupRegisterForm } from './src/interface/auth';
 import { sendScoreToAPI } from './src/interface/api';
 
-// const gui = new GUI();
+
 const inputManager = new InputManager();
 const coinManager = new CoinManager();
 
