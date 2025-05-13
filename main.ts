@@ -67,6 +67,7 @@ async function init() {
         console.log('Fox chargé et prêt !');
 
         await soundManager.loadSound('coin', 'assets/sounds/coin.mp3');
+        await soundManager.loadSound('gameover', 'assets/sounds/game-over.mp3')
         coinManager.setSoundManager(soundManager);
 
         coinManager.spawnCoins(scene, 70, 500);
@@ -76,6 +77,7 @@ async function init() {
             gameRunning = false;
             inputManager.setEnabled(false);
             const score = coinManager.getScore();
+            soundManager.play('gameover');
             await sendScoreToAPI(score);
             showGameOverMessage(score);
             showEmailSentMessage(score);
