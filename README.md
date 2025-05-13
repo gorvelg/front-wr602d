@@ -22,7 +22,6 @@
 - HTML / CSS
 - API Platform (Symfony backend)
 - JWT authentication
-- Custom SoundManager
 - REST microservice for mail delivery
 
 ## How to Run the Project
