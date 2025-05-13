@@ -1,7 +1,6 @@
-import { CylinderGeometry, MeshStandardMaterial, TextureLoader, Mesh, Scene } from 'three';
+import { CylinderGeometry, MeshStandardMaterial, TextureLoader, Mesh } from 'three';
 import { GameObject } from '../utils/interface';
 import { getFox } from '../globals/gameState';
-import {showGameOverMessage} from "../../interface/mainInterface";
 import {SoundManager} from "../globals/soundManager";
 
 export class CoinManager implements GameObject {
