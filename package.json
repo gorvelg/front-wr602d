@@ -4,6 +4,8 @@
     "description": "a video game with three.js",
     "main": "index.js",
     "scripts": {
+        "prettier:check": "prettier --check .",
+        "lint": "eslint .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
