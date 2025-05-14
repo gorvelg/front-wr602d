@@ -1,53 +1,54 @@
 import { logout } from "./auth";
 
-async function fetchHighscores(): Promise<void> {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert("Vous devez être connecté pour voir les scores.");
-        window.location.href = "/";
-        return;
-    }
 
-    try {
-        const response = await fetch("http://localhost:8319/api/scores", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: "application/ld+json",
-            },
-        });
-
-        if (!response.ok) {
-            const error = await response.json();
-            console.error("Erreur :", error);
-            alert("Erreur lors de la récupération des scores.");
-            return;
-        }
-
-        const data = await response.json();
-
-        const list = document.getElementById("highscore-list")!;
-        list.innerHTML = "";
-
-        data.member.forEach((scoreEntry: any, index: number) => {
-            const li = document.createElement("li");
-
-            const pseudo = scoreEntry.user?.pseudo ?? "Utilisateur inconnu";
-            const date = new Date(scoreEntry.date).toLocaleString();
-            const position = index + 1;
-
-            li.innerHTML = `
-                <div class="score-position">#${position}</div>
-                <div class="score-user">${pseudo}</div>
-                <div class="score-details">${scoreEntry.score} pts — ${date}</div>
-            `;
-
-            list.appendChild(li);
-        });
-    } catch (error) {
-        console.error("Erreur réseau :", error);
-        alert("Impossible de charger les scores.");
-    }
-}
+// async function fetchHighscores(): Promise<void> {
+//     const token = localStorage.getItem("token");
+//     if (!token) {
+//         alert("Vous devez être connecté pour voir les scores.");
+//         window.location.href = "/";
+//         return;
+//     }
+//
+//     try {
+//         const response = await fetch("http://localhost:8319/api/scores", {
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 Accept: "application/ld+json",
+//             },
+//         });
+//
+//         if (!response.ok) {
+//             const error = await response.json();
+//             console.error("Erreur :", error);
+//             alert("Erreur lors de la récupération des scores.");
+//             return;
+//         }
+//
+//         const data = await response.json();
+//
+//         const list = document.getElementById("highscore-list")!;
+//         list.innerHTML = "";
+//
+//         data.member.forEach((scoreEntry: any, index: number) => {
+//             const li = document.createElement("li");
+//
+//             const pseudo = scoreEntry.user?.pseudo ?? "Utilisateur inconnu";
+//             const date = new Date(scoreEntry.date).toLocaleString();
+//             const position = index + 1;
+//
+//             li.innerHTML = `
+//                 <div class="score-position">#${position}</div>
+//                 <div class="score-user">${pseudo}</div>
+//                 <div class="score-details">${scoreEntry.score} pts — ${date}</div>
+//             `;
+//
+//             list.appendChild(li);
+//         });
+//     } catch (error) {
+//         console.error("Erreur réseau :", error);
+//         alert("Impossible de charger les scores.");
+//     }
+// }
 
 async function fetchHighscoresWithFilters(): Promise<void> {
     const token = localStorage.getItem("token");
@@ -90,7 +91,6 @@ async function fetchHighscoresWithFilters(): Promise<void> {
             const date = new Date(scoreEntry.date).toLocaleString();
             const position = index + 1;
 
-            // SVG à insérer seulement pour le premier
             const crownSvg = `
         <svg height="48px" width="48px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 512.001 512.001" xml:space="preserve">
