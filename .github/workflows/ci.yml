@@ -2,28 +2,28 @@
 name: CI - Prettier & Lint
 
 on:
-  push:
-    branches:
-      - "**"
+    push:
+        branches:
+            - "**"
 
 jobs:
-  check-code:
-    runs-on: ubuntu-latest
+    check-code:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
 
-      - name: Install dependencies
-        run: npm install
+            - name: Install dependencies
+              run: npm install
 
-      - name: Run Prettier check
-        run: npm run prettier:check
+            - name: Run Prettier check
+              run: npm run prettier:check
 
-      - name: Run Linter
-        run: npm run lint
+            - name: Run Linter
+              run: npm run lint
